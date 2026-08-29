@@ -1,0 +1,51 @@
+services:
+  - type: web
+    name: viet-rank-web
+    runtime: node
+    plan: free
+    buildCommand: npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: BOT_CHECK_SECRET
+        generateValue: true
+      - key: CLIENT_ORIGIN
+        sync: false
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: GOLD_PER_VOTE
+        value: "10"
+      - key: DAILY_TASK_LIMIT
+        value: "1"
+      - key: DAILY_FREE_VOTES
+        value: "3"
+      - key: YOUTUBE_API_KEY
+        sync: false
+      - key: BOX_OFFICE_SOURCE_URL
+        sync: false
+      - key: AI_PROVIDER
+        value: openai
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: AI_MODEL
+        value: gpt-4o-mini
+      - key: AI_ARTIST_AUTO_PUBLISH
+        value: "true"
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: FACEBOOK_APP_ID
+        sync: false
+      - key: FACEBOOK_APP_SECRET
+        sync: false
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: OAUTH_CALLBACK_URL
+        sync: false
