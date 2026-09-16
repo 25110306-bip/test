@@ -16,6 +16,46 @@
             font-family: Arial, sans-serif;
             background: #f4f6f8;
             min-height: 100vh;
+        }
+
+        /* Thanh điều hướng */
+        .navbar {
+            background: #24292f;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .nav-btn:hover,
+        .nav-btn.active {
+            background: #444;
+        }
+
+        /* Nội dung */
+        .content {
+            min-height: calc(100vh - 70px);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -42,17 +82,52 @@
             line-height: 1.6;
         }
 
-        button {
+        /* Form đăng nhập */
+        .login-form {
+            text-align: left;
+        }
+
+        .login-form h1 {
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #24292f;
+        }
+
+        .login-btn {
+            width: 100%;
             border: none;
             background: #24292f;
             color: white;
-            padding: 12px 24px;
+            padding: 12px;
             border-radius: 8px;
             cursor: pointer;
             font-size: 16px;
+            margin-top: 5px;
         }
 
-        button:hover {
+        .login-btn:hover {
             background: #444;
         }
 
@@ -60,32 +135,398 @@
             margin-top: 20px;
             font-weight: bold;
             color: #2da44e;
+            text-align: center;
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="container">
-        <h1>🚀 Hello GitHub!</h1>
+    <!-- Thanh menu -->
+    <nav class="navbar">
+        <div class="logo">🚀 My Web</div>
 
-        <p>
-            Đây là website đầu tiên của tôi được deploy
-            bằng GitHub Pages.
-        </p>
+        <div class="nav-buttons">
+            <button class="nav-btn active" onclick="showHome()">
+                Trang chủ
+            </button>
 
-        <button onclick="showMessage()">
-            Bấm thử
-        </button>
+            <button class="nav-btn" onclick="showLogin()">
+                Đăng nhập
+            </button>
+        </div>
+    </nav>
 
-        <div id="message"></div>
-    </div>
+
+    <!-- Nội dung -->
+    <main class="content">
+
+        <!-- Trang chủ -->
+        <div class="container" id="homePage">
+
+            <h1>🚀 Hello GitHub!</h1>
+
+            <p>
+                Đây là website đầu tiên của tôi được deploy
+                bằng GitHub Pages.
+            </p>
+
+            <button class="login-btn" onclick="showLogin()">
+                Đăng nhập
+            </button>
+
+            <div id="message"></div>
+
+        </div>
+
+
+        <!-- Trang đăng nhập -->
+        <div class="container hidden" id="loginPage">
+
+            <form class="login-form" onsubmit="login(event)">
+
+                <h1>🔐 Đăng nhập</h1>
+
+                <p style="text-align: center;">
+                    Vui lòng nhập thông tin để tiếp tục
+                </p>
+
+                <div class="form-group">
+                    <label for="username">Tên đăng nhập</label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Nhập tên đăng nhập"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Mật khẩu</label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Nhập mật khẩu"
+                        required
+                    >
+                </div>
+
+                <button class="login-btn" type="submit">
+                    Đăng nhập
+                </button>
+
+                <div id="loginMessage"></div>
+
+            </form>
+
+        </div>
+
+    </main>
+
 
     <script>
-        function showMessage() {
-            document.getElementById("message").textContent =
-                "🎉 Website hoạt động rồi!";
+
+        function showHome() {
+            document.getElementById("homePage").classList.remove("hidden");
+            document.getElementById("loginPage").classList.add("hidden");
+
+            document.querySelectorAll(".nav-btn")[0].classList.add("active");
+            document.querySelectorAll(".nav-btn")[1].classList.remove("active");
         }
+
+
+        function showLogin() {
+            document.getElementById("homePage").classList.add("hidden");
+            document.getElementById("loginPage").classList.remove("hidden");
+
+            document.querySelectorAll(".nav-btn")[0].classList.remove("active");
+            document.querySelectorAll(".nav-btn")[1].classList.add("active");
+        }
+
+
+        function login(event) {
+            event.preventDefault();
+
+            document.getElementById("loginMessage").textContent =
+                "🎉 Giao diện đăng nhập hoạt động!";
+
+            document.getElementById("loginMessage").style.color = "#2da44e";
+            document.getElementById("loginMessage").style.textAlign = "center";
+            document.getElementById("loginMessage").style.marginTop = "15px";
+        }
+
+    </script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My First GitHub Web</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            min-height: 100vh;
+        }
+
+        /* Thanh điều hướng */
+        .navbar {
+            background: #24292f;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .nav-btn:hover,
+        .nav-btn.active {
+            background: #444;
+        }
+
+        /* Nội dung */
+        .content {
+            min-height: calc(100vh - 70px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 90%;
+        }
+
+        h1 {
+            color: #24292f;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        /* Form đăng nhập */
+        .login-form {
+            text-align: left;
+        }
+
+        .login-form h1 {
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #24292f;
+        }
+
+        .login-btn {
+            width: 100%;
+            border: none;
+            background: #24292f;
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+
+        .login-btn:hover {
+            background: #444;
+        }
+
+        #message {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #2da44e;
+            text-align: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Thanh menu -->
+    <nav class="navbar">
+        <div class="logo">🚀 My Web</div>
+
+        <div class="nav-buttons">
+            <button class="nav-btn active" onclick="showHome()">
+                Trang chủ
+            </button>
+
+            <button class="nav-btn" onclick="showLogin()">
+                Đăng nhập
+            </button>
+        </div>
+    </nav>
+
+
+    <!-- Nội dung -->
+    <main class="content">
+
+        <!-- Trang chủ -->
+        <div class="container" id="homePage">
+
+            <h1>🚀 Hello GitHub!</h1>
+
+            <p>
+                Đây là website đầu tiên của tôi được deploy
+                bằng GitHub Pages.
+            </p>
+
+            <button class="login-btn" onclick="showLogin()">
+                Đăng nhập
+            </button>
+
+            <div id="message"></div>
+
+        </div>
+
+
+        <!-- Trang đăng nhập -->
+        <div class="container hidden" id="loginPage">
+
+            <form class="login-form" onsubmit="login(event)">
+
+                <h1>🔐 Đăng nhập</h1>
+
+                <p style="text-align: center;">
+                    Vui lòng nhập thông tin để tiếp tục
+                </p>
+
+                <div class="form-group">
+                    <label for="username">Tên đăng nhập</label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Nhập tên đăng nhập"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Mật khẩu</label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Nhập mật khẩu"
+                        required
+                    >
+                </div>
+
+                <button class="login-btn" type="submit">
+                    Đăng nhập
+                </button>
+
+                <div id="loginMessage"></div>
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        function showHome() {
+            document.getElementById("homePage").classList.remove("hidden");
+            document.getElementById("loginPage").classList.add("hidden");
+
+            document.querySelectorAll(".nav-btn")[0].classList.add("active");
+            document.querySelectorAll(".nav-btn")[1].classList.remove("active");
+        }
+
+
+        function showLogin() {
+            document.getElementById("homePage").classList.add("hidden");
+            document.getElementById("loginPage").classList.remove("hidden");
+
+            document.querySelectorAll(".nav-btn")[0].classList.remove("active");
+            document.querySelectorAll(".nav-btn")[1].classList.add("active");
+        }
+
+
+        function login(event) {
+            event.preventDefault();
+
+            document.getElementById("loginMessage").textContent =
+                "🎉 Giao diện đăng nhập hoạt động!";
+
+            document.getElementById("loginMessage").style.color = "#2da44e";
+            document.getElementById("loginMessage").style.textAlign = "center";
+            document.getElementById("loginMessage").style.marginTop = "15px";
+        }
+
     </script>
 
 </body>
